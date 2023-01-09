@@ -41,6 +41,9 @@
                               </tr>
                           </thead>
                           <tbody>
+                            @if($message = session('message'))
+                                <div class="alert alert-success">{{$message}}</div>
+                            @endif
                               @if($contacts->count())
                                 @foreach ($contacts as $index => $contact)
                                 <tr>
@@ -57,23 +60,26 @@
                                           ><i class="fa fa-eye"></i
                                       ></a>
                                       <a
-                                          href="form.html"
+                                          href="{{route('contacts.edit', $contact->id)}}"
                                           class="btn btn-sm btn-circle btn-outline-secondary"
                                           title="Edit"
                                           ><i class="fa fa-edit"></i
                                       ></a>
                                       <a
-                                          href="#"
-                                          class="btn btn-sm btn-circle btn-outline-danger"
+                                          href="{{route('contacts.destroy', $contact->id)}}"
+                                          class="btn-delete btn btn-sm btn-circle btn-outline-danger"
                                           title="Delete"
-                                          onclick="confirm('Are you sure?')"
+                                          
                                           ><i class="fa fa-times"></i
                                       ></a>
                                   </td>
                               </tr>    
-                                
-                                @endforeach
-                              @endif
+                            @endforeach
+                              <form id="form-delete" method="post" style="display: none">
+                                @csrf()
+                                @method('delete')
+                            </form>
+                            @endif
                           </tbody>
                       </table>
 
