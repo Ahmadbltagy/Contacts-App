@@ -1,3 +1,4 @@
+<form>
 <div class="row">
   <div class="col">
       <select id="filter_company_id" name="company_id" class="custom-select">
@@ -15,7 +16,10 @@
   <div class="col">
       <div class="input-group mb-3">
           <input
+          id="search"
               type="text"
+              name="search"
+              value="{{request('search')}}"
               class="form-control"
               placeholder="Search..."
               aria-label="Search..."
@@ -27,6 +31,7 @@
               <button
                   class="btn btn-outline-secondary"
                   type="button"
+                  id="btn-clear"
               >
                   <i
                       class="fa fa-refresh"
@@ -34,7 +39,7 @@
               </button>
               <button
                   class="btn btn-outline-secondary"
-                  type="button"
+                  type="submit"
                   id="button-addon2"
               >
                   <i
@@ -45,3 +50,4 @@
       </div>
   </div>
 </div>
+</form>
