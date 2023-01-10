@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\User;
 
 class ContactController extends Controller
 {
     function index(){
-        $companies = Company::orderBy('name')->pluck('name', 'id')->prepend("All Companies", '');
-        $contacts = Contact::latestFirst()->paginate(10);
+        $user = auth()->user();
+        $companies = $user->companies()->orderBy('name')->pluck('name', 'id')->prepend("All Companies", '');
+        $contacts = $user->contacts()->latestFirst()->paginate(10);
         return view('contacts.index', compact('contacts', 'companies'));
 
     }
@@ -21,7 +23,7 @@ class ContactController extends Controller
 
     function create(){
         $contact = new Contact();
-        $companies = Company::orderBy('name')->pluck('name', 'id')->prepend("All Companies", '');
+        $companies = auth()->user()->companies()->orderBy('name')->pluck('name', 'id')->prepend("All Companies", '');
 
         return view('contacts.create', compact('companies', 'contact'));
     }
@@ -43,7 +45,7 @@ class ContactController extends Controller
 
     function edit($id){
         $contact =  Contact::findOrFail($id);
-        $companies = Company::orderBy('name')->pluck('name', 'id')->prepend("All Companies", '');
+        $companies = auth()->user()->companies()->orderBy('name')->pluck('name', 'id')->prepend("All Companies", '');
 
         return view('contacts.edit', compact('contact', 'companies'));
     }

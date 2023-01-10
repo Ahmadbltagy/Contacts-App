@@ -3,7 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,3 +30,7 @@ Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])->name("con
 Route::put('/contacts/{id}', [ContactController::class, 'update'])->name("contacts.update");
 Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name("contacts.destroy");
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
